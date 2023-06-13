@@ -12,9 +12,17 @@ services:
   dispatcher:
     image: semtech/mu-dispatcher:2.0.0
     links:
-      - resource:resource
+      - demo-service:demo-service
     volumes:
       - ./config/dispatcher:/config
+  demo-service:
+    build: ./demo-service
+    environment:
+      NODE_ENV: "development"
+    links:
+      - database:database
+    volumes:
+      - ./demo-service:/app
   database:
     image: redpencil/virtuoso:1.0.0
     environment:
@@ -25,9 +33,3 @@ services:
     volumes:
       - ./data/db:/data
       - ./config/virtuoso/virtuoso.ini:/data/virtuoso.ini
-  resource:
-    image: semtech/mu-cl-resources:1.20.0
-    links:
-      - database:database
-    volumes:
-      - ./config/resources:/config
