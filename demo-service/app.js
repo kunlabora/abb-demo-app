@@ -1,32 +1,66 @@
-import { app, query, errorHandler } from 'mu';
+import {app, query, errorHandler} from 'mu';
+import {findAllAwards, findAwardsByYear, findById} from "./queries";
 
-app.get('/', function( req, res ) {
-    console.log("This is some logging");
-    res.send('Hello world world!');
-} );
+app.get('/', function (req, res) {
+    res.json({message: 'Hello Paul!'});
+});
 
+app.get('/awards/raw', async (req, res) => {
+    const queryResult = await query(findAllAwards());
+    res.json(queryResult);
+});
 
-app.get('/query', function( req, res ) {
-    const myQuery = `
-    PREFIX nobel: <http://data.nobelprize.org/terms/>
-    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-    SELECT ?name ?category
-    FROM <http://mu.semte.ch/application>
-    WHERE {
-        ?award a nobel:LaureateAward.
-        ?award nobel:year 1911 . 
-        ?award nobel:laureate ?laureate .
-        ?award nobel:category ?category .
-        ?laureate foaf:name ?name .
-    } LIMIT 100`;
-
-    query( myQuery )
-        .then( function(response) {
-            res.json(response);
-        })
-        .catch( function(err) {
-            res.send( "Oops something went wrong: " + JSON.stringify( err ) );
+app.get('/awards', async (req, res) => {
+    try {
+        const queryResult = await query(findAwardsByYear(req.query?.year));
+        const bindings = queryResult?.results?.bindings;
+        const awards = bindings.map(binding => {
+            return {
+                id: getId(binding.id.value),
+                category: binding.categoryLabel.value,
+                year: binding.year.value,
+                university: binding.university?.value,
+                motivation: binding.motivation?.value,
+                laureate: {
+                    name: binding.name.value,
+                    country: binding.country.value
+                }
+            };
         });
-} );
+        res.json({awards});
+    }
+    catch (e) {
+        console.error(e);
+    }
+});
+
+app.get('/awards/:id', async (req, res) => {
+    try {
+        const queryResult = await query(findById(req.params.id));
+        console.log(queryResult);
+        const bindings = queryResult?.results?.bindings;
+        const awards = bindings.map(binding => {
+            return {
+                id: req.params.id,
+                category: binding.categoryLabel.value,
+                year: binding.year.value,
+                university: binding.university?.value,
+                motivation: binding.motivation?.value,
+                laureate: {
+                    name: binding.name.value,
+                    country: binding.country.value
+                }
+            };
+        });
+        res.json({awards: {...awards[0]}});
+    }
+    catch (e) {
+        console.error(e);
+    }
+});
+
+function getId(idUrl) {
+    return idUrl.split("/").at(-1);
+}
 
 app.use(errorHandler);

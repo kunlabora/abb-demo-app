@@ -1,0 +1,13 @@
+<h1>Awards</h1>
+<label for="year-filter">Year:</label>
+<Input
+  id="year-filter"
+  @type="number"
+  @value={{this.year}}
+/>
+<button {{ on 'click' this.filterData }}>Filter</button>
+
+
+{{#each this.awards as |award|}}
+  <Award @award={{award}}/>
+{{/each}}

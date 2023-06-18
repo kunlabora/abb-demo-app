@@ -7,5 +7,7 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function () {
-  this.route("awards", {});
+  this.route("awards", function(){
+    this.route('detail', { path: '/:award_id' });
+  });
 });

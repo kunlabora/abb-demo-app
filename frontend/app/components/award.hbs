@@ -1,0 +1,6 @@
+<LinkTo @route="awards.detail" @model={{@award.id}} class="card">
+  <h3>{{@award.category}} - {{@award.year}}</h3>
+  <div class="details">
+    {{@award.laureate.name}}
+  </div>
+</LinkTo>
