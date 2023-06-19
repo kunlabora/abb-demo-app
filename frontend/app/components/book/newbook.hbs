@@ -1,0 +1,14 @@
+<h1>New Book</h1>
+<label for="book-title">Title:</label>
+<Input
+  id="book-title"
+  @type="string"
+  @value={{this.title}}
+/>
+<label for="book-isbn">ISBN:</label>
+<Input
+  id="book-isbn"
+  @type="string"
+  @value={{this.isbn}}
+/>
+<button {{ on 'click' this.createBook }}>Create Book</button>
