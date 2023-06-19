@@ -13,6 +13,7 @@ services:
     image: semtech/mu-dispatcher:2.0.0
     links:
       - demo-service:demo-service
+      - resources:resources
     volumes:
       - ./config/dispatcher:/config
   demo-service:
@@ -23,6 +24,12 @@ services:
       - database:database
     volumes:
       - ./demo-service:/app
+  resources:
+    image: mu-cl-resources:arm
+    links:
+      - database:database
+    volumes:
+      - ./config/resources:/config
   database:
     image: redpencil/virtuoso:1.0.0
     environment:
