@@ -13,4 +13,10 @@ export default class BooksController extends Controller {
     });
     await record.save();
   }
+
+  @action
+  async deleteBook(id) {
+    const book = await this.store.peekRecord('book', id);
+    await book.destroyRecord({});
+  }
 }
