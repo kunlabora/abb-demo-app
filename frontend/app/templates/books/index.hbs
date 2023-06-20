@@ -1,0 +1,12 @@
+<h1>Books</h1>
+<p>
+<LinkTo @route="books.new" class="menu-index"><button>Create Book</button></LinkTo>
+</p>
+
+<h2>All books</h2>
+{{#each @model as |book|}}
+  <div class="card card-row">
+    <div>{{book.title}} - {{book.isbn}}</div>
+    <button {{ on 'click' (fn this.deleteBook book.id)}}>Delete book</button>
+  </div>
+{{/each}}

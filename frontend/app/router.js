@@ -10,5 +10,7 @@ Router.map(function () {
   this.route('awards', function () {
     this.route('detail', { path: '/:award_id' });
   });
-  this.route('books');
+  this.route('books', function () {
+    this.route('new');
+  });
 });
