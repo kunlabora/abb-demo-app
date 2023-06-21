@@ -11,4 +11,14 @@
   @type="string"
   @value={{this.isbn}}
 />
+<label for="authors">Authors:</label>
+<select name="authors" id="authors" {{ on 'change' this.selectAuthor }}>
+  {{#each @authors as |author|}}
+    <option value={{author.id}}>{{author.firstName}} {{author.lastName}}</option>
+  {{/each}}
+
+</select>
 <button {{ on 'click' this.createBook }}>Create Book</button>
+<LinkTo @route="authors.new" class="menu-index">
+  <a>Create author</a>
+</LinkTo>

@@ -5,9 +5,15 @@ import { action } from '@ember/object';
 export default class NewBookComponent extends Component {
   @tracked title;
   @tracked isbn;
+  authorId;
 
   @action
   createBook() {
-    this.args.createBooks(this.title, this.isbn);
+    this.args.createBooks(this.title, this.isbn, this.authorId);
+  }
+
+  @action
+  selectAuthor(event) {
+    this.authorId = event.target.value;
   }
 }

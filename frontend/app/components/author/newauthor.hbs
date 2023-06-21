@@ -1,0 +1,14 @@
+<h1>New Author</h1>
+<label for="firstName">First Name:</label>
+<Input
+  id="firstName"
+  @type="string"
+  @value={{this.firstName}}
+/>
+<label for="lastName">Last Name:</label>
+<Input
+  id="lastName"
+  @type="string"
+  @value={{this.lastName}}
+/>
+<button {{ on 'click' this.createAuthor }}>Create Author</button>

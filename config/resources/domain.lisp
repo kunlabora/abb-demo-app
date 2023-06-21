@@ -2,7 +2,16 @@
 
 (define-resource book ()
   :class (s-prefix "schema:Book")
-  :properties `((:title :string ,(s-prefix "schema:name"))
-                (:isbn :string ,(s-prefix "schema:isbn")))
+  :properties `((:title :string ,(s-prefix "schema:name") :required)
+                (:isbn :string ,(s-prefix "schema:isbn") :required))
+  :has-one `((author :via ,(s-prefix "schema:author")
+                :as "author"))
   :resource-base (s-url "http://my-application/books/")
   :on-path "books")
+
+(define-resource author ()
+    :class (s-prefix "schema:author")
+    :properties `((:first-name :string ,(s-prefix "schema:givenName") :required)
+                    (:last-name :string ,(s-prefix "schema:familyName") :required))
+    :resource-base (s-url "http://my-application/authors/")
+    :on-path "authors")

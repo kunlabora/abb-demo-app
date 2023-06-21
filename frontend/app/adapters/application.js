@@ -1,5 +1,5 @@
 import JSONAPIAdapter from '@ember-data/adapter/json-api';
 
-export default class BookAdapter extends JSONAPIAdapter {
+export default class ApplicationAdapter extends JSONAPIAdapter {
   namespace = 'resources';
 }
