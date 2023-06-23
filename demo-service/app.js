@@ -2,7 +2,8 @@ import {app, query, errorHandler} from 'mu';
 import {findAllAwards, findAwardsByYear, findById} from "./queries";
 
 app.get('/', function (req, res) {
-    res.json({message: 'Hello Paul!'});
+    console.log(req.headers['mu-session-id']);
+    res.json({message: 'Hello World!'});
 });
 
 app.get('/awards/raw', async (req, res) => {
