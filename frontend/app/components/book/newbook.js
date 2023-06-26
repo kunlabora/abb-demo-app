@@ -5,7 +5,7 @@ import { action } from '@ember/object';
 export default class NewBookComponent extends Component {
   @tracked title;
   @tracked isbn;
-  authorId;
+  authorId = this.args.authors[0]?.id;
 
   @action
   createBook() {
