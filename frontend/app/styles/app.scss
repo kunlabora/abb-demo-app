@@ -2,6 +2,14 @@
 
 
 @import url("https://fonts.googleapis.com/css?family=Lato:300,300italic,400,700,700italic");
+@import "ember-appuniversum/a-settings";
+@import "ember-appuniversum/a-tools";
+@import "ember-rdfa-editor";
+@import "ember-appuniversum/a-utilities";
+@import "ember-appuniversum/a-generic";
+@import "ember-appuniversum/a-elements";
+@import "ember-appuniversum/a-objects";
+@import "ember-appuniversum/a-components";
 
 /**
  * Base Elements
@@ -256,4 +264,9 @@ p {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.editor-container {
+  height: 600px;
+  padding-top: 20px;
 }
