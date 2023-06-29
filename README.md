@@ -11,15 +11,21 @@ The quest is:
 
 ```
 git clone git@github.com:madnificent/sbcl-quicklisp.git
+cd sbcl-quicklisp
 docker build . -t sbcl-quicklisp:arm
+cd ..
 
 git clone git@github.com:madnificent/lisp-webservice-docker.git
-nano Dockerfile (change FROM sbcl-quicklisp:arm)
+cd lisp-webservice-docker
+nano Dockerfile (change FROM to sbcl-quicklisp:arm)
 docker build . -t lisp-webservice:arm
+cd ..
 
 git clone git@github.com:mu-semtech/mu-cl-resources.git
-nano Dockerfile (change FROM lisp-webservice:arm)
+cd mu-cl-resources
+nano Dockerfile (change FROM to lisp-webservice:arm)
 git submodule init
-git sumbodule update
+git summodule update
 docker build . -t mu-cl-resources:arm
+cd ..
 ```
