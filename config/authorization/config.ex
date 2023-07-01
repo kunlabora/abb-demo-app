@@ -1,5 +1,6 @@
 alias Acl.Accessibility.Always, as: AlwaysAccessible
 alias Acl.GraphSpec.Constraint.Resource, as: ResourceConstraint
+alias Acl.Accessibility.ByQuery, as: AccessByQuery
 alias Acl.GraphSpec, as: GraphSpec
 alias Acl.GroupSpec, as: GroupSpec
 alias Acl.GroupSpec.GraphCleanup, as: GraphCleanup
@@ -15,15 +16,32 @@ defmodule Acl.UserGroups.Config do
     [
       # // PUBLIC
       %GroupSpec{
-        name: "public",
+        name: "books",
         useage: [:read, :write, :read_for_write],
         access: %AlwaysAccessible{},
         graphs: [ %GraphSpec{
-          graph: "http://mu.semte.ch/graphs/public",
+          graph: "http://mu.semte.ch/graphs/books",
           constraint: %ResourceConstraint{
             resource_types: [
               "http://schema.org/Book",
               "http://schema.org/author"
+            ]
+          } } ] },
+
+      %GroupSpec{
+        name: "awards",
+        useage: [:read],
+        access: %AlwaysAccessible{},
+        graphs: [ %GraphSpec{
+          graph: "http://mu.semte.ch/graphs/awards",
+          constraint: %ResourceConstraint{
+            resource_types: [
+              "http://data.nobelprize.org/terms/LaureateAward",
+              "http://data.nobelprize.org/terms/Laureate",
+              "http://data.nobelprize.org/terms/Category",
+              "http://dbpedia.org/ontology/City",
+              "http://dbpedia.org/ontology/Country",
+              "http://dbpedia.org/ontology/University"
             ]
           } } ] },
 

@@ -5,7 +5,7 @@ services:
     image: semtech/mu-identifier:1.9.1
     environment:
       SESSION_COOKIE_SECURE: "on"
-      DEFAULT_MU_AUTH_ALLOWED_GROUPS_HEADER: "[{\"variables\":[],\"name\":\"public\"}]"
+      DEFAULT_MU_AUTH_ALLOWED_GROUPS_HEADER: "[{\"variables\":[],\"name\":\"books\"}, {\"variables\":[],\"name\":\"awards\"}, {\"variables\":[],\"name\":\"clean\"}]"
     links:
       - dispatcher:dispatcher
     ports:
@@ -35,6 +35,12 @@ services:
     image: semtech/mu-authorization:0.6.0-beta.5
     environment:
       MU_SPARQL_ENDPOINT: "http://triplestore:8890/sparql"
+      LOG_OUTGOING_SPARQL_QUERIES: "true"
+      LOG_INCOMING_SPARQL_QUERIES: "true"
+      INSPECT_ACCESS_RIGHTS_PROCESSING: "true"
+      LOG_ACCESS_RIGHTS: "true"
+      LOG_OUTGOING_SPARQL_QUERY_RESPONSES: "true"
+      ERROR_ON_UNWRITTEN_DATA: "true"
     volumes:
       - ./config/authorization:/config
   triplestore:
